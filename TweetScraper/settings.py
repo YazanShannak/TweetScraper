@@ -27,7 +27,7 @@ SAVE_USER_PATH = './Data/user/'
 MONGODB_SERVER = "localhost"
 MONGODB_PORT = 27017
 MONGODB_DB = "COVIDTweets"        # database name to save the crawled data
-MONGODB_TWEET_COLLECTION = "tweet" # collection name to save tweets
+MONGODB_TWEET_COLLECTION = "tweets_v2" # collection name to save tweets
 MONGODB_USER_COLLECTION = "user"   # collection name to save users
 
 #settings for mysql
