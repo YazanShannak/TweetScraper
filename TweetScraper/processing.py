@@ -1,6 +1,7 @@
 import re
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 def parse_hashtags_mentions(text):
     hashtags = re.findall('#\w+', text)
@@ -15,7 +16,8 @@ def parse_hashtags_mentions(text):
 
 def clean_text(text:str) -> str:
     text, _, _  = parse_hashtags_mentions(text)
-    punctionation_clean = re.sub("""[!?.'"-]""", "", text)
+    image_clean = re.sub("pic.[\w/.]+", "", text)
+    punctionation_clean = re.sub("""[!?.'"-]""", "", image_clean)
     numbers_clean = re.sub("\d", "", punctionation_clean)
     skip_clean = re.sub("\\n|\\t", " ", numbers_clean)
     link_clean = re.sub("https.+", "", skip_clean)
@@ -35,5 +37,8 @@ def stem_tweet(text:str) -> str:
 
 def process_all_text(text:str)->str:
     clean = clean_text(text)
-    stopwords_clean = clean_stopwords(clean)
-    return stem_tweet(stopwords_clean)
+    return clean_stopwords(clean)
+
+def get_polarity(text:str) -> float:
+    analyzer = SentimentIntensityAnalyzer()
+    return analyzer.polarity_scores(text)

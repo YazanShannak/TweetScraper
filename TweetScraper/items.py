@@ -31,6 +31,7 @@ class Tweet(Item):
     clean_text = Field()
     hashtags = Field()
     mentions = Field()
+    polarity = Field()
 
 
 class User(Item):

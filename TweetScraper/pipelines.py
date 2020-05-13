@@ -5,7 +5,7 @@ import logging
 import pymongo
 import json
 import os
-from TweetScraper import cleaning
+from TweetScraper import processing
 
 # for mysql
 import mysql.connector
@@ -18,10 +18,11 @@ SETTINGS = get_project_settings()
 
 logger = logging.getLogger(__name__)
 
-class CleanText:
+class ProcessText:
     def process_item(self, item, spider):
-        item["clean_text"], item["hashtags"], item["mentions"] = cleaning.parse_hashtags_mentions(text=item["text"])
-        item["clean_text"] = cleaning.process_all_text(item["clean_text"])
+        item["clean_text"], item["hashtags"], item["mentions"] = processing.parse_hashtags_mentions(text=item["text"])
+        item["clean_text"] = processing.process_all_text(item["clean_text"])
+        item["polarity"] = processing.get_polarity(item["clean_text"])
         return item
 
 
