@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"TweetScraper.user"},{"v":{"$numberInt":"2"},"unique":true,"key":{"ID":{"$numberInt":"1"}},"name":"ID_1","ns":"TweetScraper.user"}],"uuid":"179283cef5df45e3bdfd53e6f18981e3"}

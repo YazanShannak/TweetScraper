@@ -21,6 +21,10 @@ logger = logging.getLogger(__name__)
 class TweetScraper(CrawlSpider):
     name = 'TweetScraper'
     allowed_domains = ['twitter.com']
+    custom_settings = {
+        'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter',
+        'DOWNLOAD_DELAY': 60
+    }
 
     def __init__(self, query='', lang='', crawl_user=False, top_tweet=False):
 
@@ -36,6 +40,7 @@ class TweetScraper(CrawlSpider):
 
     def start_requests(self):
         url = self.url % (quote(self.query), '')
+        print(url)
         yield http.Request(url, callback=self.parse_page)
 
     def parse_page(self, response):
@@ -70,6 +75,9 @@ class TweetScraper(CrawlSpider):
                 if not ID:
                     continue
                 tweet['ID'] = ID[0]
+
+                # This was added later
+                tweet['location'] = self.get_location()
 
                 ### get text content
                 tweet['text'] = ' '.join(
@@ -168,3 +176,9 @@ class TweetScraper(CrawlSpider):
         if extracted:
             return extracted[0]
         return default
+
+    def get_location(self):
+        query = self.query
+        locations = re.findall("near:\w+", query)
+        return locations[0][5:] if len(locations) > 0 else "undefined"
+

@@ -27,6 +27,7 @@ class Tweet(Item):
 
     has_media = Field() # True/False, whether a tweet contains media (e.g. summary)
     medias = Field()    # a list of media
+    location = Field()
 
 
 class User(Item):

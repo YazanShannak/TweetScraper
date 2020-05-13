@@ -5,6 +5,7 @@ import logging
 import pymongo
 import json
 import os
+from TweetScraper import cleaning
 
 # for mysql
 import mysql.connector
@@ -16,6 +17,13 @@ from TweetScraper.utils import mkdirs
 SETTINGS = get_project_settings()
 
 logger = logging.getLogger(__name__)
+
+class CleanText:
+    def process_item(self, item, spider):
+        item["clean_text"], item["hashtags"], item["mentions"] = cleaning.parse_hashtags_mentions(text=item["text"])
+        item["clean_text"] = cleaning.process_all_text(item["clean_text"])
+        return item
+
 
 class SaveToMongoPipeline(object):
 
@@ -132,7 +140,7 @@ class SavetoMySQLPipeline(object):
         ID = item['ID']
         user_id = item['user_id']
         url = item['url']
-        text = item['text']
+        text = item['text'].encode("utf-8")
         username = item['usernameTweet']
         datetime = item['datetime']
 
