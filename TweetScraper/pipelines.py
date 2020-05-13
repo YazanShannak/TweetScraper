@@ -20,9 +20,12 @@ logger = logging.getLogger(__name__)
 
 class ProcessText:
     def process_item(self, item, spider):
-        item["clean_text"], item["hashtags"], item["mentions"] = processing.parse_hashtags_mentions(text=item["text"])
-        item["clean_text"] = processing.process_all_text(item["clean_text"])
-        item["polarity"] = processing.get_polarity(item["clean_text"])
+        text_without_hashtags, item["hashtags"], item["mentions"] = processing.parse_hashtags_mentions(text=item["text"])
+        clean_text = processing.process_all_text(text_without_hashtags)
+        stemmed_clean = processing.stem_tweet(clean_text)
+        polarity, stemmed_polarity = processing.get_polarity(clean_text), processing.get_polarity(stemmed_clean)
+        item["clean_text"], item["stemmed_clean"] = clean_text, stemmed_clean
+        item["polarity"], item["stemmed_polarity"] = polarity, stemmed_polarity
         return item
 
 

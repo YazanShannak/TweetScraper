@@ -32,6 +32,8 @@ class Tweet(Item):
     hashtags = Field()
     mentions = Field()
     polarity = Field()
+    stemmed_clean = Field()
+    stemmed_polarity = Field()
 
 
 class User(Item):

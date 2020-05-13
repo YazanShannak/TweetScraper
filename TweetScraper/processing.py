@@ -41,4 +41,5 @@ def process_all_text(text:str)->str:
 
 def get_polarity(text:str) -> float:
     analyzer = SentimentIntensityAnalyzer()
-    return analyzer.polarity_scores(text)
+    results = analyzer.polarity_scores(text)
+    return results.get("compound")
