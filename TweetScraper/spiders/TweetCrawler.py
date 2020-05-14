@@ -23,7 +23,7 @@ class TweetScraper(CrawlSpider):
     allowed_domains = ['twitter.com']
     custom_settings = {
         'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter',
-        'DOWNLOAD_DELAY': 30
+        'DOWNLOAD_DELAY': 10
     }
 
     def __init__(self, query='', lang='', crawl_user=False, top_tweet=False):
