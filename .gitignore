@@ -3,3 +3,5 @@ pyenv/
 venv/
 .idea/
 *.pyc
+EC2Tutorial.pem
+ec2-connect
