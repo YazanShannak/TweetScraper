@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"COVIDTweets.user"},{"v":{"$numberInt":"2"},"unique":true,"key":{"ID":{"$numberInt":"1"}},"name":"ID_1","ns":"COVIDTweets.user"}],"uuid":"32ee90c038aa4b1e9f11d63d440d7d15"}
