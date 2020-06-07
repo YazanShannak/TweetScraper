@@ -7,3 +7,4 @@ EC2Tutorial.pem
 ec2-connect
 data*
 backup.*
+dump/
