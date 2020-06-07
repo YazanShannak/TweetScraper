@@ -4,7 +4,24 @@ It is built on [Scrapy](http://scrapy.org/) without using [Twitter's APIs](https
 The crawled data is not as *clean* as the one obtained by the APIs, but the benefits are you can get rid of the API's rate limits and restrictions. Ideally, you can get all the data from Twitter Search.
 
 **WARNING:** please be polite and follow the [crawler's politeness policy](https://en.wikipedia.org/wiki/Web_crawler#Politeness_policy).
- 
+
+# My Updates
+
+This is a fork of the original repo, I made some adjustments to collect clean text data with a calculated polarity for sentiment analysis:
+
+- Clean text data from links, non-English words, numbers, ..etc with Regex
+- Stopwords removal
+- Extract and remove hashtags and mentions
+- Produce a stemmed text with PorterStemmer
+- Calculate polarity score with VADER analyzer, for both clean text and stemmed clean text
+- Set a DOWNLOAD_DELAY of 10 seconds to avoid a *429 Too many requests error* by Twitter, this can be found in the configuration in the spider itself and not in the settings.py
+
+You can find these adjustments in processing.py and as a pipeline added in pipelines.py enabled in settings.py
+
+This project was used to collect data with keywords related to the COVID-19 pandemic from February till the end of April of 2020 in the United States, we gathered almost 1.3M tweets, they can be found [here on Kaggle](https://www.kaggle.com/yazanshannak/us-covid-tweets)
+
+
+
 
 # Installation #
 It requires [Scrapy](http://scrapy.org/) and [PyMongo](https://api.mongodb.org/python/current/) (Also install [MongoDB](https://www.mongodb.org/) if you want to save the data to database). Setting up:
@@ -12,8 +29,8 @@ It requires [Scrapy](http://scrapy.org/) and [PyMongo](https://api.mongodb.org/p
     $ git clone https://github.com/jonbakerfish/TweetScraper.git
     $ cd TweetScraper/
     $ pip install -r requirements.txt  #add '--user' if you are not root
-	$ scrapy list
-	$ #If the output is 'TweetScraper', then you are ready to go.
+    $ scrapy list
+    $ #If the output is 'TweetScraper', then you are ready to go.
 
 # Usage #
 1. Change the `USER_AGENT` in `TweetScraper/settings.py` to identify who you are
